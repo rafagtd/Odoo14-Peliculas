@@ -70,6 +70,11 @@ class Presupuesto(models.Model):
         string='Detalles',
     )
     campos_ocultos = fields.Boolean(string="Campos ocultos")
+    currency_id = fields.Many2one(
+        comodel_name='res.currency',
+        string='Moneda',
+        default=lambda self: self.env.company.currency_id.id,
+    )
 
     def aprobar_presupuesto(self):
         logging.error('+++++++++++++++++++++++++')
@@ -141,14 +146,20 @@ class PresupuestoDetalle(models.Model):
         string="Recurso",
     )
     des_r_cine = fields.Char(string="Descripción", related="name.description")
-    prize_r_cine = fields.Float(string="Precio")
+    prize_r_cine = fields.Float(string="Precio", digits=(16, 3))
     contact_r_cine = fields.Many2one(
         comodel_name='res.partner',
         string="Contacto",
         related="name.contacto_id")
     image_r_cine = fields.Binary(string="Imagen", related="name.image")
-    quantity = fields.Float(string="Cantidad",default=1.0, digits=(4, 1))# 1 decimales y un max total de 4 digitos contando con los decimales si colocamos 0, 0 será ilimitado
-    total_amount = fields.Float(string='Importe total')
+    quantity = fields.Float(string="Cantidad", default=1.0, digits=(4, 1))# 1 decimales y un max total de 4 digitos contando con los decimales si colocamos 0, 0 será ilimitado
+    total_amount = fields.Monetary(string='Importe total')
+    # Cuando hay un campo Monetary se necesita una variable currency_id para seleccionar la moneda
+    currency_id = fields.Many2one(
+        comodel_name='res.currency',
+        string='Moneda',
+        related="presupuesto_id.currency_id"
+    )
 
     @api.onchange('name')
     def _onchange_price(self):
