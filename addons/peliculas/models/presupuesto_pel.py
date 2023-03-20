@@ -10,6 +10,16 @@ class Presupuesto(models.Model):
     _name = "presupuesto"
     _inherit = ['image.mixin']  # Hereda modelo de binarios
 
+    @api.depends('detalle_ids')
+    def _compute_total(self):
+        for record in self:
+            sub_total = 0
+            for rec in self.detalle_ids:
+                sub_total += rec.total_amount
+            record.base = sub_total
+            record.impuestos = sub_total * 0.21
+            record.total = sub_total + record.impuestos
+
     name = fields.Char(string='Película')
     desc = fields.Text(
         string='Description',
@@ -75,6 +85,10 @@ class Presupuesto(models.Model):
         string='Moneda',
         default=lambda self: self.env.company.currency_id.id,
     )
+    terminos = fields.Text(string='Términos')
+    base = fields.Float(string='Base', compute='_compute_total')
+    impuestos = fields.Float(string='Impuestos', compute='_compute_total')
+    total = fields.Float(string='Total', compute='_compute_total')
 
     def aprobar_presupuesto(self):
         logging.error('+++++++++++++++++++++++++')

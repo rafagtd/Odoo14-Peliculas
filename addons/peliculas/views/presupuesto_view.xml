@@ -74,6 +74,7 @@
                                     <field name="currency_id"/>
                                     <field name="campos_ocultos" widget="boolean_toggle"/>
                                 </group>
+                            </group>
                                 <field name="detalle_ids">
                                     <!--  Sirve para cambiar el agregar linea y editable bottom para que no salte un pop-up para editar
                                            y puedas editar directamente sobre la tabla-->
@@ -91,6 +92,20 @@
                                         <field name="currency_id" invisible="1" />
                                     </tree>
                                 </field>
+                            <group col="6" class="mt-2 mt-md-0">
+                                <group colspan="4">
+                                    <field name="terminos" nolabel="1" placeholder="Términos y condiciones..."/>
+                                </group>
+                                <group class="oe_subtotal_footer oe_right" colspan="2">
+                                    <field name="base" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="impuestos"/>
+                                    <div class="oe_sub_total_footer_separator oe_line o_td_label">
+                                        <label for="total"/>
+                                    </div>
+                                    <field name="total" nolabel="1" class="oe_sub_total_footer_separator"
+                                           widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
                             </group>
                         </page>
                         <page name="Otra_información_pestaña" string="Otra información">
