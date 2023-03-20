@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="action_open_presupuesto" model="ir.actions.act_window">
+        <field name="name">Presupuesto</field>
+        <field name="res_model">presupuesto</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record id="action_open_recursos_cine" model="ir.actions.act_window">
+        <field name="name">Recursos de Cine</field>
+        <field name="res_model">recursos.cine</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_principal" name="Presupuesto de películas"/>
+    <menuitem id="menu_horizontal" name="Mis modelos" parent="menu_principal"/>
+    <menuitem id="menu_vertical" name="Presupuesto de películas" parent="menu_horizontal" action="action_open_presupuesto"/>
+    <menuitem id="menu_vertical_recursos_cine" name="Recursos de Cine" parent="menu_horizontal" action="action_open_recursos_cine"/>
+
+</odoo>

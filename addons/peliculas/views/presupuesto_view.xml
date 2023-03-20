@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="view_presupuesto_form" model="ir.ui.view">
+        <field name="name">Vista formulario</field>
+        <field name="model">presupuesto</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="aprobar_presupuesto" type="object" string="Aprobar" class="oe_highlight oe_edit_only" states="B"/>
+                    <button name="cancelar_presupuesto" type="object" string="Cancelar" states="A,B" class="oe_edit_only btn-danger"/>
+                    <field name="state" widget="statusbar" statusbar_visible="B,A"/>
+                </header>
+                <div class="alert alert-info" role="alert" attrs="{'invisible':[('dsc_age_class', '==', False)]}">
+                    <field name="dsc_age_class" readonly="1" force_save="1"/>
+                </div>
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="bg-danger"
+                            attrs="{'invisible':[('active', '=', True)]}"/>
+                    <field name="image_1920" widget="image" class="oe_avatar"
+                           options="{'preview_image':'image_128','size':['', 128]}"/>
+                    <div class="title"><!--Sirve para poner el título en la misma línea que la imagen  -->
+                        <div class="o_row">
+                            <field name="active" invisible="1"/>
+                            <h1 style="display: flex;">
+                                <field name="name" required="1" placeholder="Película" default_focus="1"
+                                    class="oe_inline"/>
+                                <field name="score" widget="percentpie" string=" "
+                                       style="padding-left: 10px;" class="oe_inline"/>
+                                <field name="score2" placeholder="Puntuación" class="oe_edit_only oe_inline"/>
+                            </h1>
+                        </div>
+                    <!--display flex pone en otra línea el div completo, si no estuviese la clasificación de la edad
+                    y el estreno se ven en la misma linea que el nombre de la pelicula y la puntuación -->
+                        <div class="o_row" style="display: flex;">
+                            <field name="age_class" required="1"/>
+                            <span class="fa fa-circle"
+                                  attrs="{'invisible':['|', ('age_class', '=', False), ('premier', '=', False)]}"
+                                  style="font-size: 10px; padding: 3px;"/>
+                            <field name="premier"/>
+                        </div>
+                        <!--Este display flex pone los géneros uno al lado del otro y no debajo -->
+                        <div class="o_row">
+                            <field name="gender_ids" widget="many2many_tags" style="display: flex;"/>
+                        </div>
+                    </div>
+                    <group string="Resumen"><!--style="margin-top: -10px;"  Para reducir distancia con div de arriba-->
+                        <field name="desc" placeholder="Resumen" attrs="{'readonly': [('state', '!=', 'B')]}"/>
+                        <group><!-- Colummna derecha. El domain es un filtro que muestra solo los valores
+                        Options es para no poder crear ni editar categorías-->
+                            <field name="director_id"
+                                   domain="[('category_id', 'in', [category_director_id])]"
+                                   options="{'no_create': True, 'no_open': True}"/>
+                            <field name="category_director_id" invisible="1"/>
+                            <field name="link_trailer" widget="url"/>
+                        </group>
+                        <group>
+                            <field name="is_book" widget="boolean_toggle"/>
+                            <field name="book" filename='libro_filename'
+                                   attrs="{'invisible':[('is_book', '=', False)]}"/>
+                            <field name="libro_filename" invisible="1"/>
+                        </group>
+                    </group>
+                    <separator string="Detalles"/>
+                    <notebook>
+                        <page name="Presupuesto_pestaña" string="Presupuesto">
+                            <group>
+                                <group>
+                                    <field name="n_presupuesto" readonly="1"/>
+                                    <field name="f_creacion" readonly="1"/>
+                                    <field name="f_aprobado" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="campos_ocultos" widget="boolean_toggle"/>
+                                </group>
+                                <field name="detalle_ids">
+                                    <!--  Sirve para cambiar el agregar linea y editable bottom para que no salte un pop-up para editar
+                                           y puedas editar directamente sobre la tabla-->
+                                    <tree editable="bottom">
+                                        <control>
+                                          <create name="add_product_control" string="Agregar recurso"/>
+                                        </control>
+                                        <field name="image_r_cine" widget="image" options="{'size': [80, 50]}" optional="show"/><!-- optional sirve para mostrar la columna-->
+                                        <field name="name"/>
+                                        <field name="des_r_cine" attrs="{'column_invisible':[('parent.campos_ocultos','=', True)]}"/>
+                                        <field name="contact_r_cine"/>
+                                        <field name="quantity"/>
+                                        <field name="prize_r_cine"/>
+                                        <field name="total_amount"/><!-- Los campos de solo lectura necesitan un force_save para que se guarden bd sino al guardar registrará 0-->
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page name="Otra_información_pestaña" string="Otra información">
+                         <group>    <!-- No se crea otro group para no dividir la página en columnas sino que ocupe el ancho completo-->
+                                <field name="actor_ids"
+                                       domain="[('category_id', 'in', [category_actor_id])]"
+                                       options="{'no_create': True, 'no_open': True}"
+                                       widget="many2many_tags"/>
+                                <field name="category_actor_id" invisible="1"/>
+                                <field name="opinion"/>
+                            </group>
+                        </page>
+                    </notebook>
+            </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
