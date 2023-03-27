@@ -14,7 +14,7 @@ class Presupuesto(models.Model):
     def _compute_total(self):
         for record in self:
             sub_total = 0
-            for rec in self.detalle_ids:
+            for rec in record.detalle_ids:
                 sub_total += rec.total_amount
             record.base = sub_total
             record.impuestos = sub_total * 0.21

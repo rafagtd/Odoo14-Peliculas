@@ -123,4 +123,30 @@
             </form>
         </field>
     </record>
+
+    <record id="presupuesto_view_tree" model="ir.ui.view">
+        <field name="name">presupuesto_view_tree</field>
+        <field name="model">presupuesto</field>
+        <field name="arch" type="xml">
+           <tree string="presupuesto_tree" decoration-muted="state == 'B'" decoration-success="state == 'A'">
+                <field name="name"/>
+                <field name="n_presupuesto"/>
+                <field name="f_creacion"/>
+                <field name="total" sum="suma_total"/><!--La variable sum no está definida en el modelo la utiliza Odoo para pintar el total-->
+                <field name="state" widget="badge" decoration-success="state == 'A'" decoration-danger="state == 'C'"/>
+               <!--  Otros decorations:
+                decorations-bf: Negrita
+                decorations-it: Cursiva
+                decorations-danger: Rojo
+                decorations-info: Celeste
+                decorations-warning: Amarillo
+                decoration-success: Verde
+                decoration-muted: Gris
+                El widget badge con el decoration cambia el aspecto del estado, en este caso aparecerá con un fondo
+                verde si state está aprobado
+                -->
+            </tree>
+        </field>
+    </record>
+
 </odoo>
