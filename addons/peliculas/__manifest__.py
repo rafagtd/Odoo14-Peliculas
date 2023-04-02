@@ -13,6 +13,8 @@
     Modulo para hacer presupuestos de peliculas
     ''',
     'data': [
+        'security/security.xml',
+        'security/ir.model.access.csv',
         'data/categoria.xml',
         'data/secuencia.xml',
         'views/menu.xml',

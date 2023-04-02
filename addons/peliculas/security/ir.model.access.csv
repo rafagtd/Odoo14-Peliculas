@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_presupuesto_admin,presupuesto,model_presupuesto,group_peliculas_admin,1,1,1,1
+access_presupuesto_detalle_admin,presupuesto_detalle,model_presupuesto_detalle,group_peliculas_admin,1,1,1,1
+access_gender_admin,gender,model_gender,group_peliculas_admin,1,1,1,1
+access_recursos_cine_admin,recursos_cine,model_recursos_cine,group_peliculas_admin,1,1,1,1
+
+
+access_presupuesto_usuario,presupuesto,model_presupuesto,group_peliculas_usuario,1,0,0,0
+access_presupuesto_detalle_usuario,presupuesto_detalle,model_presupuesto_detalle,group_peliculas_usuario,1,0,0,0
+access_gender_usuario,gender,model_gender,group_peliculas_usuario,1,0,0,0
+access_recursos_cine_usuario,recursos_cine,model_recursos_cine,group_peliculas_usuario,1,0,0,0
