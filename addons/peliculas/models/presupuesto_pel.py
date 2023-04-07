@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 class Presupuesto(models.Model):
     _name = "presupuesto"
-    _inherit = ['image.mixin']  # Hereda modelo de binarios
+    _inherit = ['image.mixin', 'mail.thread', 'mail.activity.mixin']  # Hereda modelo de binarios y la mensajería
 
     @api.depends('detalle_ids')
     def _compute_total(self):

@@ -3,7 +3,7 @@
     'name': 'Modulo de peliculas',
     'version': '1.0',
     'depends': [
-        'base',
+        'contacts', 'mail',
     ],
     'author': 'Rafa GtD',
     'category': 'Peliculas',
