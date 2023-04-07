@@ -7,8 +7,9 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="aprobar_presupuesto" type="object" string="Aprobar" class="oe_highlight oe_edit_only" states="B"/>
-                    <button name="cancelar_presupuesto" type="object" string="Cancelar" states="A,B" class="oe_edit_only btn-danger"/>
+                    <button string="Aprobar" type="object" name="aprobar_presupuesto"  class="oe_highlight oe_edit_only" states="B"/>
+                    <button string="Cancelar" type="object" name="cancelar_presupuesto" states="A,B" class="oe_edit_only btn-danger"/>
+                    <button string="Pop-Up" type="action" name="%(action_open_update_wizard)d" states="A,B" class="oe_edit_only btn-outline-warning"/>
                     <field name="state" widget="statusbar" statusbar_visible="B,A"/>
                 </header>
                 <div class="alert alert-info" role="alert" attrs="{'invisible':[('dsc_age_class', '==', False)]}">
