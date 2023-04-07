@@ -30,6 +30,12 @@
             <field name="domain_force">[('create_uid', '=', user.id)]</field>
             <field name="groups" eval="[(4, ref('group_peliculas_usuario'))]"/>
         </record>
+        <record id="pelicula_presupuestos_todos_rule" model="ir.rule">
+            <field name="name">presupuestos_pel_todos</field>
+            <field name="model_id" ref="model_presupuesto"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_peliculas_admin'))]"/>
+        </record>
 
     </data>
 </odoo>
